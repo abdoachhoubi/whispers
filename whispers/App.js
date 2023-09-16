@@ -3,6 +3,9 @@ import Splash from "./screens/Splash";
 import Welcome from "./screens/Welcome";
 import Signin from "./screens/auth/Signin";
 import Signup from "./screens/auth/Signup";
+import Pass from "./screens/auth/Pass";
+import Email from "./screens/auth/Email";
+import Home from "./screens/home/Home";
 
 import {
   useFonts,
@@ -14,8 +17,6 @@ import {
   IBMPlexMono_600SemiBold,
   IBMPlexMono_700Bold,
 } from "@expo-google-fonts/ibm-plex-mono";
-import Pass from "./screens/auth/Pass";
-import Email from "./screens/auth/Email";
 
 export const FontContext = createContext();
 
@@ -51,7 +52,8 @@ export default function App() {
 	  {/* <Signin /> */}
 	  {/* <Signup /> */}
 	  {/* <Pass /> */}
-	  <Email />
+	  {/* <Email /> */}
+	  <Home />
     </FontContext.Provider>
   );
 }
