@@ -10,11 +10,9 @@ import {
 import React, { useContext, useState, useEffect } from "react";
 import { Keyboard } from "react-native";
 
-// eslint-disable-next-line import/no-cycle
-import { FontContext } from "../../App";
+import {fonts} from "../../Contexts";
 
 const Email = () => {
-  const fonts = useContext(FontContext);
   const [logo, setLogo] = useState(true);
 
   const hideLogo = () => {

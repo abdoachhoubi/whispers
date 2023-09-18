@@ -1,11 +1,9 @@
 import { StyleSheet, Text, View, Image } from "react-native";
 import React, { useContext } from "react";
 
-// eslint-disable-next-line import/no-cycle
-import { FontContext } from "../App";
+import {fonts} from "../Contexts"
 
 const Splash = () => {
-  const fonts = useContext(FontContext);
 
   return (
     <View style={styles.container}>

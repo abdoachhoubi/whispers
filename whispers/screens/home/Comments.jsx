@@ -1,163 +1,138 @@
 import {
-  StyleSheet,
-  Text,
-  View,
-  Image,
-  RefreshControl,
-  FlatList,
-  ScrollView,
-  SafeAreaView,
-  TouchableOpacity,
-} from "react-native";
-import React, { useContext, useState } from "react";
+	StyleSheet,
+	Text,
+	View,
+	Image,
+	RefreshControl,
+	FlatList,
+	ScrollView,
+	SafeAreaView,
+	TouchableOpacity,
+  } from "react-native";
+  import React, { useContext, useState } from "react";
 
-// eslint-disable-next-line import/no-cycle
-// import { FontContext } from "../../App";
-import { fonts } from "../../Contexts";
+import {fonts} from "../../Contexts";
 
 const data = [
-  {
-    id: 1,
-    postContent: "Hey, what's your favorite study spot on campus?",
-    date: "10 Nov 2023, 12:00 AM",
-    liked: false,
-    sensitive: false,
-  },
-  {
-    id: 2,
-    postContent: "Share your favorite book or movie recommendation!",
-    date: "10 Nov 2023, 12:00 AM",
-    liked: true,
-    sensitive: true,
-  },
-  {
-    id: 3,
-    postContent:
-      "Hey there, I've been pondering this question lately: What's the most significant change you'd like to see on our campus? It could be anything, big or small. Share your thoughts and let's spark some positive change together!",
-    date: "10 Nov 2023, 12:00 AM",
-    liked: true,
-    sensitive: false,
-  },
-  {
-    id: 4,
-    postContent: "Anonymous compliment: You have a great sense of style!",
-    date: "10 Nov 2023, 12:00 AM",
-    liked: true,
-    sensitive: false,
-  },
-];
-
-const WhisperActions = ({ item }) => {
-  const likeStroke = require("../../assets/heart.png");
-  const likeFill = require("../../assets/heart-filled.png");
-  const [liked, setLiked] = useState(item.liked);
-  return (
-    <View style={styles.whisper_actions}>
-      <TouchableOpacity
-        style={styles.whisper_action}
-        onPress={() => setLiked((prev) => !prev)}
-      >
-        <Image
-          source={liked ? likeFill : likeStroke}
-          style={styles.whisper_action_icon}
-        />
-      </TouchableOpacity>
-      <TouchableOpacity style={styles.whisper_action}>
-        <Image
-          source={require("../../assets/comment.png")}
-          style={styles.whisper_action_icon}
-        />
-      </TouchableOpacity>
-      <TouchableOpacity style={styles.whisper_action}>
-        <Image
-          source={require("../../assets/message.png")}
-          style={styles.whisper_action_icon}
-        />
-      </TouchableOpacity>
-      <TouchableOpacity style={styles.whisper_action}>
-        <Image
-          source={require("../../assets/report.png")}
-          style={styles.whisper_action_icon}
-        />
-      </TouchableOpacity>
-    </View>
-  );
-};
-
-const BlurView = ({ setBlur, fonts }) => {
-  return (
-    <>
-      <View style={styles.blurredView}></View>
-      <View style={styles.blur_info_container}>
-        <Text style={[styles.blur_info, {fontFamily: fonts.regular}]}>
-          This whisper has been hidden due to sensitive content.
-        </Text>
-        <TouchableOpacity
-          style={styles.blur_button}
-          onPress={() => setBlur(false)}
-        >
-          <Text style={[styles.blur_button_text, {fontFamily: fonts.medium}]}>Show Whisper</Text>
-        </TouchableOpacity>
-      </View>
-    </>
-  );
-};
-
-const ItemView = ({ item, fonts }) => {
-  const [blur, setBlur] = useState(item.sensitive);
-  return (
-    <View style={styles.whisper_container}>
-      {blur && <BlurView setBlur={setBlur} fonts={fonts} />}
-      <View style={styles.whisper_inner_container}>
-	  <Text style={[styles.whisper_content, { fontFamily: fonts.regular }]}>
-        {item.postContent}
-      </Text>
-      <Text style={[styles.whisper_date, { fontFamily: fonts.regular }]}>
-        {item.date}
-      </Text>
-      <WhisperActions item={item} />
+	{
+	  id: 1,
+	  postContent: "Hey, what's your favorite study spot on campus?",
+	  date: "10 Nov 2023, 12:00 AM",
+	  liked: false,
+	  sensitive: false,
+	},
+	{
+	  id: 2,
+	  postContent: "Share your favorite book or movie recommendation!",
+	  date: "10 Nov 2023, 12:00 AM",
+	  liked: true,
+	  sensitive: true,
+	},
+	{
+	  id: 3,
+	  postContent:
+		"Hey there, I've been pondering this question lately: What's the most significant change you'd like to see on our campus? It could be anything, big or small. Share your thoughts and let's spark some positive change together!",
+	  date: "10 Nov 2023, 12:00 AM",
+	  liked: true,
+	  sensitive: false,
+	},
+	{
+	  id: 4,
+	  postContent: "Anonymous compliment: You have a great sense of style!",
+	  date: "10 Nov 2023, 12:00 AM",
+	  liked: true,
+	  sensitive: false,
+	},
+  ];
+  
+  const WhisperActions = ({ item }) => {
+	const likeStroke = require("../../assets/heart.png");
+	const likeFill = require("../../assets/heart-filled.png");
+	const [liked, setLiked] = useState(item.liked);
+	return (
+	  <View style={styles.whisper_actions}>
+		<TouchableOpacity
+		  style={styles.whisper_action}
+		  onPress={() => setLiked((prev) => !prev)}
+		>
+		  <Image
+			source={liked ? likeFill : likeStroke}
+			style={styles.whisper_action_icon}
+		  />
+		</TouchableOpacity>
+		<TouchableOpacity style={styles.whisper_action}>
+		  <Image
+			source={require("../../assets/comment.png")}
+			style={styles.whisper_action_icon}
+		  />
+		</TouchableOpacity>
+		<TouchableOpacity style={styles.whisper_action}>
+		  <Image
+			source={require("../../assets/message.png")}
+			style={styles.whisper_action_icon}
+		  />
+		</TouchableOpacity>
+		<TouchableOpacity style={styles.whisper_action}>
+		  <Image
+			source={require("../../assets/report.png")}
+			style={styles.whisper_action_icon}
+		  />
+		</TouchableOpacity>
 	  </View>
-    </View>
-  );
-};
+	);
+  };
+  
+  const BlurView = ({ setBlur, fonts }) => {
+	return (
+	  <>
+		<View style={styles.blurredView}></View>
+		<View style={styles.blur_info_container}>
+		  <Text style={[styles.blur_info, {fontFamily: fonts.regular}]}>
+			This whisper has been hidden due to sensitive content.
+		  </Text>
+		  <TouchableOpacity
+			style={styles.blur_button}
+			onPress={() => setBlur(false)}
+		  >
+			<Text style={[styles.blur_button_text, {fontFamily: fonts.medium}]}>Show Whisper</Text>
+		  </TouchableOpacity>
+		</View>
+	  </>
+	);
+  };
+  
+  const ItemView = ({ item, fonts }) => {
+	const [blur, setBlur] = useState(item.sensitive);
+	return (
+	  <View style={styles.whisper_container}>
+		{blur && <BlurView setBlur={setBlur} fonts={fonts} />}
+		<View style={styles.whisper_inner_container}>
+		<Text style={[styles.whisper_content, { fontFamily: fonts.regular }]}>
+		  {item.postContent}
+		</Text>
+		<Text style={[styles.whisper_date, { fontFamily: fonts.regular }]}>
+		  {item.date}
+		</Text>
+		<WhisperActions item={item} />
+		</View>
+	  </View>
+	);
+  };
+  
+  const ItemSeparatorView = () => {
+	return (
+	  <View
+		style={{
+		  height: 24,
+		  width: "100%",
+		}}
+	  />
+	);
+  };
 
-const ItemSeparatorView = () => {
-  return (
-    <View
-      style={{
-        height: 24,
-        width: "100%",
-      }}
-    />
-  );
-};
+const Comments = () => {
+  const whisper = "Hey, what's your favorite study spot on campus?";
 
-const BottomNavBar = () => {
-  return (
-    <View style={styles.bottom_nav_bar_container}>
-      <TouchableOpacity style={styles.bottom_nav_bar_item}>
-        <Image
-          source={require("../../assets/home.png")}
-          style={styles.bottom_nav_bar_item_icon}
-        />
-      </TouchableOpacity>
-      <TouchableOpacity style={styles.bottom_nav_bar_item}>
-        <Image
-          source={require("../../assets/chat.png")}
-          style={styles.bottom_nav_bar_item_icon}
-        />
-      </TouchableOpacity>
-      <TouchableOpacity style={styles.bottom_nav_bar_item}>
-        <Image
-          source={require("../../assets/settings.png")}
-          style={styles.bottom_nav_bar_item_icon}
-        />
-      </TouchableOpacity>
-    </View>
-  );
-};
-
-const Home = () => {
   const [refreshing, setRefreshing] = React.useState(false);
   const [dataSource, setDataSource] = React.useState(data);
   const [whispershow, setWhispershow] = useState(true);
@@ -195,6 +170,7 @@ const Home = () => {
       setRefreshing(false);
     }, 2000);
   }, []);
+
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.app_bar_container}>
@@ -203,7 +179,16 @@ const Home = () => {
           style={styles.logo_s_solid}
         />
       </View>
-      {/* <ScrollView
+      <View style={styles.whisper_section}>
+        <Text style={[{ fontFamily: fonts.regular }, styles.heading]}>
+          Comments on whisper:
+        </Text>
+        <Text style={[{ fontFamily: fonts.regular }, styles.whisper_text]}>
+          {"\n"}
+          {whisper}
+        </Text>
+      </View>
+	  {/* <ScrollView
         onScroll={handleScroll}
         refreshControl={
           <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
@@ -221,19 +206,11 @@ const Home = () => {
           ItemSeparatorComponent={ItemSeparatorView}
         />
       {/* </ScrollView> */}
-      <BottomNavBar />
-      {whispershow && (
-        <TouchableOpacity style={styles.whisper_button}>
-          <Text style={[{ fontFamily: fonts.medium }, styles.whispers_text]}>
-            Add a whisper
-          </Text>
-        </TouchableOpacity>
-      )}
     </SafeAreaView>
   );
 };
 
-export default Home;
+export default Comments;
 
 const styles = StyleSheet.create({
   container: {
@@ -263,6 +240,27 @@ const styles = StyleSheet.create({
     width: 25,
     height: 22,
     marginTop: 12,
+  },
+  heading_container: {
+    width: "100%",
+    flexDirection: "row",
+    paddingVertical: 24,
+    paddingHorizontal: 24,
+  },
+  heading: {
+    fontSize: 22,
+    color: "#B9FF23",
+  },
+  whisper_section: {
+    width: "100%",
+    paddingHorizontal: 24,
+    paddingVertical: 16,
+    borderBottomColor: "rgba(255, 255, 255, .8)",
+    borderBottomWidth: 1,
+  },
+  whisper_text: {
+    fontSize: 16,
+    color: "#fff",
   },
   flatlist: {
     width: "100%",
