@@ -33,7 +33,7 @@ export default function App() {
   });
 
   if (!fontsLoaded) {
-	return null;
+    return null;
   }
 
   const fonts = {
@@ -49,13 +49,13 @@ export default function App() {
   return (
     <FontContext.Provider value={fonts}>
       {/* <Splash /> */}
-	  {/* <Welcome /> */}
-	  {/* <Signin /> */}
-	  {/* <Signup /> */}
-	  {/* <Pass /> */}
-	  {/* <Email /> */}
-	  {/* <Home /> */}
-	  <Comments />
+      {/* <Welcome /> */}
+      {/* <Signin /> */}
+      {/* <Signup /> */}
+      {/* <Pass /> */}
+      {/* <Email /> */}
+      <Home />
+      {/* <Comments /> */}
     </FontContext.Provider>
   );
 }

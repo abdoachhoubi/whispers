@@ -5,14 +5,12 @@ import {
   Image,
   RefreshControl,
   FlatList,
-  ScrollView,
   SafeAreaView,
   TouchableOpacity,
 } from "react-native";
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 
-// eslint-disable-next-line import/no-cycle
-// import { FontContext } from "../../App";
+import BottomNavBar from "../../components/BottomNavBar";
 import { fonts } from "../../Contexts";
 
 const data = [
@@ -89,14 +87,16 @@ const BlurView = ({ setBlur, fonts }) => {
     <>
       <View style={styles.blurredView}></View>
       <View style={styles.blur_info_container}>
-        <Text style={[styles.blur_info, {fontFamily: fonts.regular}]}>
+        <Text style={[styles.blur_info, { fontFamily: fonts.regular }]}>
           This whisper has been hidden due to sensitive content.
         </Text>
         <TouchableOpacity
           style={styles.blur_button}
           onPress={() => setBlur(false)}
         >
-          <Text style={[styles.blur_button_text, {fontFamily: fonts.medium}]}>Show Whisper</Text>
+          <Text style={[styles.blur_button_text, { fontFamily: fonts.medium }]}>
+            Show Whisper
+          </Text>
         </TouchableOpacity>
       </View>
     </>
@@ -109,14 +109,14 @@ const ItemView = ({ item, fonts }) => {
     <View style={styles.whisper_container}>
       {blur && <BlurView setBlur={setBlur} fonts={fonts} />}
       <View style={styles.whisper_inner_container}>
-	  <Text style={[styles.whisper_content, { fontFamily: fonts.regular }]}>
-        {item.postContent}
-      </Text>
-      <Text style={[styles.whisper_date, { fontFamily: fonts.regular }]}>
-        {item.date}
-      </Text>
-      <WhisperActions item={item} />
-	  </View>
+        <Text style={[styles.whisper_content, { fontFamily: fonts.regular }]}>
+          {item.postContent}
+        </Text>
+        <Text style={[styles.whisper_date, { fontFamily: fonts.regular }]}>
+          {item.date}
+        </Text>
+        <WhisperActions item={item} />
+      </View>
     </View>
   );
 };
@@ -129,31 +129,6 @@ const ItemSeparatorView = () => {
         width: "100%",
       }}
     />
-  );
-};
-
-const BottomNavBar = () => {
-  return (
-    <View style={styles.bottom_nav_bar_container}>
-      <TouchableOpacity style={styles.bottom_nav_bar_item}>
-        <Image
-          source={require("../../assets/home.png")}
-          style={styles.bottom_nav_bar_item_icon}
-        />
-      </TouchableOpacity>
-      <TouchableOpacity style={styles.bottom_nav_bar_item}>
-        <Image
-          source={require("../../assets/chat.png")}
-          style={styles.bottom_nav_bar_item_icon}
-        />
-      </TouchableOpacity>
-      <TouchableOpacity style={styles.bottom_nav_bar_item}>
-        <Image
-          source={require("../../assets/settings.png")}
-          style={styles.bottom_nav_bar_item_icon}
-        />
-      </TouchableOpacity>
-    </View>
   );
 };
 
@@ -188,9 +163,9 @@ const Home = () => {
         sensitive: true,
       },
     ]);
-	if (dataSource.length > 5) {
-		setDataSource(dataSource.slice(0, 4));
-	}
+    if (dataSource.length > 5) {
+      setDataSource(dataSource.slice(0, 4));
+    }
     setTimeout(() => {
       setRefreshing(false);
     }, 2000);
@@ -203,24 +178,17 @@ const Home = () => {
           style={styles.logo_s_solid}
         />
       </View>
-      {/* <ScrollView
+      <FlatList
         onScroll={handleScroll}
         refreshControl={
           <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
         }
-      > */}
-        <FlatList
-		onScroll={handleScroll}
-        refreshControl={
-          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
-        }
-          style={styles.flatlist}
-          data={dataSource}
-          keyExtractor={(_, index) => index.toString()}
-          renderItem={(item) => <ItemView item={item.item} fonts={fonts} />}
-          ItemSeparatorComponent={ItemSeparatorView}
-        />
-      {/* </ScrollView> */}
+        style={styles.flatlist}
+        data={dataSource}
+        keyExtractor={(_, index) => index.toString()}
+        renderItem={(item) => <ItemView item={item.item} fonts={fonts} />}
+        ItemSeparatorComponent={ItemSeparatorView}
+      />
       <BottomNavBar />
       {whispershow && (
         <TouchableOpacity style={styles.whisper_button}>
@@ -279,7 +247,7 @@ const styles = StyleSheet.create({
     overflow: "hidden",
   },
   whisper_inner_container: {
-	padding: 24,
+    padding: 24,
     borderRadius: 8,
   },
   whisper_content: {
