@@ -101,7 +101,7 @@ const data = [
 	);
   };
   
-  const ItemView = ({ item, fonts }) => {
+  const PostView = ({ item, fonts }) => {
 	const [blur, setBlur] = useState(item.sensitive);
 	return (
 	  <View style={styles.whisper_container}>
@@ -202,7 +202,7 @@ const Comments = () => {
           style={styles.flatlist}
           data={dataSource}
           keyExtractor={(_, index) => index.toString()}
-          renderItem={(item) => <ItemView item={item.item} fonts={fonts} />}
+          renderItem={(item) => <PostView item={item.item} fonts={fonts} />}
           ItemSeparatorComponent={ItemSeparatorView}
         />
       {/* </ScrollView> */}
