@@ -16,21 +16,18 @@ import { fonts } from "../../Contexts";
 
 const data = [
   {
-    // id: 1,
     postContent: "Hey, what's your favorite study spot on campus?",
     date: "10 Nov 2023, 12:00 AM",
     liked: false,
     sensitive: false,
   },
   {
-    // id: 2,
     postContent: "Share your favorite book or movie recommendation!",
     date: "10 Nov 2023, 12:00 AM",
     liked: true,
     sensitive: true,
   },
   {
-    // id: 3,
     postContent:
       "Hey there, I've been pondering this question lately: What's the most significant change you'd like to see on our campus? It could be anything, big or small. Share your thoughts and let's spark some positive change together!",
     date: "10 Nov 2023, 12:00 AM",
@@ -38,24 +35,12 @@ const data = [
     sensitive: false,
   },
   {
-    // id: 4,
     postContent: "Anonymous compliment: You have a great sense of style!",
     date: "10 Nov 2023, 12:00 AM",
     liked: true,
     sensitive: false,
   },
 ];
-
-const ItemSeparatorView = () => {
-  return (
-    <View
-      style={{
-        height: 24,
-        width: "100%",
-      }}
-    />
-  );
-};
 
 const Home = () => {
   const [refreshing, setRefreshing] = React.useState(false);
@@ -81,7 +66,6 @@ const Home = () => {
     setDataSource([
       ...data,
       {
-        // id: 5,
         postContent: "Hey, what's your best class?",
         date: "10 Nov 2023, 12:00 AM",
         liked: true,
@@ -112,7 +96,6 @@ const Home = () => {
         data={dataSource}
         keyExtractor={(_, index) => index.toString()}
         renderItem={(item) => <PostView data={item} fonts={fonts} />}
-        // ItemSeparatorComponent={ItemSeparatorView}
       />
       <BottomNavBar />
       {whispershow && (
@@ -161,8 +144,6 @@ const styles = StyleSheet.create({
   flatlist: {
     width: "100%",
     boxSize: "border-box",
-    // paddingBottom: 64,
-    // paddingTop: 32,
   },
   bottom_nav_bar_container: {
     width: "100%",
