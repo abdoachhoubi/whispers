@@ -5,12 +5,10 @@ import {
   Image,
   RefreshControl,
   FlatList,
-  ScrollView,
   SafeAreaView,
-  TouchableOpacity,
 } from "react-native";
 import React, { useState,  } from "react";
-import { PostView } from "../../components/PostView";
+import  PostView  from "../../components/PostView";
 
 import { fonts } from "../../Contexts";
 

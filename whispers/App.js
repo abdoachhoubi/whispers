@@ -7,6 +7,7 @@ import Pass from "./screens/auth/Pass";
 import Email from "./screens/auth/Email";
 import Home from "./screens/home/Home";
 import Comments from "./screens/home/Comments";
+import Replies from "./screens/home/Replies";
 
 import {
   useFonts,
@@ -54,8 +55,9 @@ export default function App() {
       {/* <Signup /> */}
       {/* <Pass /> */}
       {/* <Email /> */}
-      <Home />
+      {/* <Home /> */}
       {/* <Comments /> */}
+	  <Replies />
     </FontContext.Provider>
   );
 }

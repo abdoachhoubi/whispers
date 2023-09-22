@@ -59,7 +59,7 @@ const WhisperActions = ({ item }) => {
   );
 };
 
-const PostView = ({ data, fonts }) => {
+const PostView = ({ data, fonts, isReply }) => {
   const { index, item } = data;
   const marginTop = {
     marginTop: index == 0 ? 32 : 0,
@@ -75,7 +75,7 @@ const PostView = ({ data, fonts }) => {
         <Text style={[styles.whisper_date, { fontFamily: fonts.regular }]}>
           {item.date}
         </Text>
-        <WhisperActions item={item} />
+        {!isReply && <WhisperActions item={item} />}
       </View>
     </View>
   );
@@ -93,6 +93,8 @@ const styles = StyleSheet.create({
     overflow: "hidden",
     display: "block",
     marginBottom: 32,
+	// minimum height of fit-content
+	minHeight: 160,
   },
   whisper_inner_container: {
     padding: 24,
@@ -129,7 +131,7 @@ const styles = StyleSheet.create({
     width: 1000,
     height: 1000,
     position: "absolute",
-    top: 0,
+    top: "50%",
     left: 0,
     backgroundColor: "#000",
     zIndex: 1,
