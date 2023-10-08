@@ -6,6 +6,7 @@ import {
   Image,
   Linking,
   TouchableOpacity,
+  TextInput
 } from "react-native";
 import React from "react";
 import { fonts } from "../../Contexts";
@@ -24,7 +25,7 @@ const Report = () => {
   };
   return (
     <SafeAreaView style={styles.container}>
-      <View>
+      <View style={{width: "100%"}}>
         <View style={styles.app_bar_container}>
           <Image
             source={require("../../assets/logo-s-solid.png")}
@@ -40,20 +41,27 @@ const Report = () => {
             {whisper}
           </Text>
         </View>
-        <View>
+        <View style={{width: "100%", padding: 8}}>
           <Text style={[{ fontFamily: fonts.regular }, styles.whisper_text]}>
-            Prior to flagging this post, we recommend reviewing our
+            Prior to flagging this post, we recommend reviewing our Terms of Use and Standards.
           </Text>
           <TouchableOpacity
-		  style={{display: "inline", position: "relative"}}
+		  style={{width: "100%", paddingVertical: 22, display: "flex",alignItem: "center", justifyContent: "center", backgroundColor: "#fff", paddingHorizontal: 16, borderRadius: 8, marginTop: 16}}
             onPress={() => handleLinkPress("https://google.com")}
           >
-            <Text style={[{ fontFamily: fonts.regular }, styles.heading]}>
-              Terms of Use and Standards.
+            <Text style={[{ fontFamily: fonts.regular }, styles.heading, {fontSize: 16, textAlign: "center"}]}>
+              Terms of Use and Standards
             </Text>
           </TouchableOpacity>
         </View>
       </View>
+	  <View style={{width: "100%"}}>
+	  <TextInput
+            style={[styles.input, { fontFamily: fonts.regular }]}
+            placeholder="Reason for flagging"
+            placeholderTextColor="#fff"
+          />
+	  </View>
     </SafeAreaView>
   );
 };
@@ -110,4 +118,14 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: "#fff",
   },
+  input :{
+	width: "100%",
+    paddingVertical: 16,
+    borderColor: "#fff",
+    borderWidth: 1,
+    color: "#fff",
+    borderRadius: 8,
+    paddingHorizontal: 16,
+    marginBottom: 24,
+  }
 });
