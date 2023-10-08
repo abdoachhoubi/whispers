@@ -44,7 +44,7 @@ const data = [
   },
 ];
 
-const Comments = () => {
+const Comments = ({navigation}) => {
   const whisper = "Hey, what's your favorite study spot on campus?";
 
   const [refreshing, setRefreshing] = React.useState(false);
@@ -155,7 +155,7 @@ const styles = StyleSheet.create({
   },
   heading: {
     fontSize: 22,
-    color: "#B9FF23",
+    color: "#D8492B",
   },
   whisper_section: {
     width: "100%",
@@ -202,7 +202,7 @@ const styles = StyleSheet.create({
   whisper_button: {
     paddingVertical: 16,
     paddingHorizontal: 24,
-    backgroundColor: "#B9FF23",
+    backgroundColor: "#D8492B",
     borderRadius: 100,
     position: "absolute",
     bottom: 80,

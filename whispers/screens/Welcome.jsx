@@ -3,7 +3,7 @@ import React, { useContext } from "react";
 
 import {fonts} from "../Contexts";
 
-const Welcome = () => {
+const Welcome = ({navigation}) => {
 
   return (
     <View style={styles.container}>
@@ -19,7 +19,7 @@ const Welcome = () => {
           Send messages, ask questions, and share thoughts without revealing
           your identity.
         </Text>
-        <TouchableOpacity style={styles.button_container}>
+        <TouchableOpacity style={styles.button_container} onPress={() => navigation.navigate("Signup")}>
           <Text style={[{ fontFamily: fonts.bold }, styles.button_text]}>
             Get Started
           </Text>

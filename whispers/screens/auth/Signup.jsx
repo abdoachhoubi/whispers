@@ -12,7 +12,7 @@ import { Keyboard } from "react-native";
 
 import {fonts} from "../../Contexts";
 
-const Signup = () => {
+const Signup = ({navigation}) => {
   const [logo, setLogo] = useState(true);
 
   const hideLogo = () => {
@@ -68,7 +68,7 @@ const Signup = () => {
             placeholderTextColor="#fff"
             secureTextEntry={true}
           />
-          <TouchableOpacity style={styles.forgot_password}>
+          <TouchableOpacity style={styles.forgot_password} onPress={() => navigation.navigate("Signin")}>
             <Text
               style={[
                 styles.forgot_password_text,

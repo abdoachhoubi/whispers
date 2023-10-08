@@ -12,7 +12,7 @@ import { Keyboard } from "react-native";
 
 import {fonts} from "../../Contexts";
 
-const Signin = () => {
+const Signin = ({navigation}) => {
   const [logo, setLogo] = useState(true);
 
   const hideLogo = () => {
@@ -67,7 +67,7 @@ const Signin = () => {
             placeholderTextColor="#fff"
             secureTextEntry={true}
           />
-          <TouchableOpacity style={styles.forgot_password}>
+          <TouchableOpacity style={styles.forgot_password} onPress={() => navigation.navigate("Pass")}>
             <Text
               style={[
                 styles.forgot_password_text,
@@ -79,10 +79,15 @@ const Signin = () => {
           </TouchableOpacity>
         </KeyboardAvoidingView>
         <TouchableOpacity style={styles.button_container}>
-          <Text style={[styles.button_text, { fontFamily: fonts.bold }]}>
+          <Text style={[styles.button_text, { fontFamily: fonts.bold }]} onPress={() => navigation.navigate("Home")}>
             Sign in
           </Text>
         </TouchableOpacity>
+		<TouchableOpacity style={styles.button_container_transparent} onPress={() => navigation.navigate("Signup")}>
+			<Text style={[styles.forgot_password_text, { fontFamily: fonts.regular }]}>
+				New here? Create an account
+			</Text>
+		</TouchableOpacity>
       </View>
     </KeyboardAvoidingView>
   );
@@ -161,5 +166,15 @@ const styles = StyleSheet.create({
   button_text: {
     fontSize: 18,
     color: "#000",
+  },
+  button_container_transparent: {
+	width: "100%",
+	height: "auto",
+	backgroundColor: "transparent",
+	alignItems: "center",
+	justifyContent: "center",
+	paddingVertical: 16,
+	borderRadius: 8,
+	marginTop: 8,
   },
 });

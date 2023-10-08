@@ -1,7 +1,7 @@
 import { StyleSheet, Text, View, TouchableOpacity, Image } from "react-native";
 import React, { useState } from "react";
 
-const BlurView = ({ setBlur, fonts }) => {
+const BlurView = ({ setBlur, fonts, isReply }) => {
   return (
     <>
       <View style={styles.blurredView}></View>
@@ -14,7 +14,7 @@ const BlurView = ({ setBlur, fonts }) => {
           onPress={() => setBlur(false)}
         >
           <Text style={[styles.blur_button_text, { fontFamily: fonts.medium }]}>
-            Show Whisper
+            {isReply ? "Show Comment": "Show Whisper"}
           </Text>
         </TouchableOpacity>
       </View>
@@ -22,7 +22,7 @@ const BlurView = ({ setBlur, fonts }) => {
   );
 };
 
-const WhisperActions = ({ item }) => {
+const WhisperActions = ({ item, navigation }) => {
   const likeStroke = require("../assets/heart.png");
   const likeFill = require("../assets/heart-filled.png");
   const [liked, setLiked] = useState(item.liked);
@@ -37,7 +37,7 @@ const WhisperActions = ({ item }) => {
           style={styles.whisper_action_icon}
         />
       </TouchableOpacity>
-      <TouchableOpacity style={styles.whisper_action}>
+      <TouchableOpacity style={styles.whisper_action} onPress={() => navigation.navigate("Comments")}>
         <Image
           source={require("../assets/comment.png")}
           style={styles.whisper_action_icon}
@@ -59,7 +59,7 @@ const WhisperActions = ({ item }) => {
   );
 };
 
-const PostView = ({ data, fonts, isReply }) => {
+const PostView = ({ data, fonts, isReply, navigation }) => {
   const { index, item } = data;
   const marginTop = {
     marginTop: index == 0 ? 32 : 0,
@@ -67,7 +67,7 @@ const PostView = ({ data, fonts, isReply }) => {
   const [blur, setBlur] = useState(item.sensitive);
   return (
     <View style={[styles.whisper_container, marginTop]}>
-      {blur && <BlurView setBlur={setBlur} fonts={fonts} />}
+      {blur && <BlurView setBlur={setBlur} fonts={fonts} isReply={isReply} />}
       <View style={styles.whisper_inner_container}>
         <Text style={[styles.whisper_content, { fontFamily: fonts.regular }]}>
           {item.postContent}
@@ -75,7 +75,7 @@ const PostView = ({ data, fonts, isReply }) => {
         <Text style={[styles.whisper_date, { fontFamily: fonts.regular }]}>
           {item.date}
         </Text>
-        {!isReply && <WhisperActions item={item} />}
+        {!isReply && <WhisperActions item={item} navigation={navigation} />}
       </View>
     </View>
   );
@@ -154,7 +154,7 @@ const styles = StyleSheet.create({
   blur_button: {
     width: 200,
     height: 48,
-    backgroundColor: "#FF0000",
+    backgroundColor: "#fff",
     borderRadius: 100,
     alignSelf: "center",
     justifyContent: "center",
@@ -162,7 +162,7 @@ const styles = StyleSheet.create({
   },
   blur_button_text: {
     fontSize: 16,
-    color: "#fff",
+    color: "#000",
     textAlign: "center",
   },
 });

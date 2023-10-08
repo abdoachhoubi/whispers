@@ -1,4 +1,6 @@
 import React, { createContext } from "react";
+import { NavigationContainer } from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Splash from "./screens/Splash";
 import Welcome from "./screens/Welcome";
 import Signin from "./screens/auth/Signin";
@@ -21,6 +23,7 @@ import {
 } from "@expo-google-fonts/ibm-plex-mono";
 
 export const FontContext = createContext();
+const Stack = createNativeStackNavigator();
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -49,15 +52,72 @@ export default function App() {
 
   return (
     <FontContext.Provider value={fonts}>
-      {/* <Splash /> */}
-      {/* <Welcome /> */}
-      {/* <Signin /> */}
-      {/* <Signup /> */}
-      {/* <Pass /> */}
-      {/* <Email /> */}
-      {/* <Home /> */}
-      {/* <Comments /> */}
-	  <Replies />
+      <NavigationContainer>
+        <Stack.Navigator>
+          <Stack.Screen
+            name="Splash"
+            component={Splash}
+            options={{ headerShown: false }}
+          />
+		  
+          <Stack.Screen
+            name="Welcome"
+            component={Welcome}
+            options={{ headerShown: false }}
+          />
+		  
+          <Stack.Screen
+            name="Signin"
+            component={Signin}
+            options={{ headerShown: false }}
+          />
+		  
+          <Stack.Screen
+            name="Signup"
+            component={Signup}
+            options={{ headerShown: false }}
+          />
+		  
+          <Stack.Screen
+            name="Pass"
+            component={Pass}
+            options={{ headerShown: false }}
+          />
+		  
+          <Stack.Screen
+            name="Email"
+            component={Email}
+            options={{ headerShown: false }}
+          />
+		  
+          <Stack.Screen
+            name="Home"
+            component={Home}
+            options={{ headerShown: false }}
+          />
+		  
+          <Stack.Screen
+            name="Comments"
+            component={Comments}
+            options={{ headerShown: false }}
+          />
+		  
+          <Stack.Screen
+            name="Replies"
+            component={Replies}
+            options={{ headerShown: false }}
+          />
+		  
+        </Stack.Navigator>
+      </NavigationContainer>
     </FontContext.Provider>
   );
 }
+
+/*
+<Stack.Screen
+  name="Splash"
+  component={Splash}
+  options={{ headerShown: false }}
+/>
+*/
