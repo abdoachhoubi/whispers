@@ -5,6 +5,7 @@ import {
   Dimensions,
   View,
   SafeAreaView,
+  Text
 } from "react-native";
 
 const { width: WIDTH } = Dimensions.get("window");
@@ -14,13 +15,10 @@ import BottomNavBar from "../../components/BottomNavBar";
 
 const Home = ({ navigation }) => {
   const [current, setCurrent] = useState(0);
-  const [iconState, setIconState] = useState(0);
   const scrollRef = useRef(null);
   const switchView = (index) => {
-    console.log("Switching to " + index + " view");
     scrollRef.current?.scrollTo({ x: index * WIDTH, y: 0, animated: true });
     setCurrent(index);
-    setIconState(index);
   };
 
   return (
@@ -30,23 +28,27 @@ const Home = ({ navigation }) => {
         bounces={false}
         pagingEnabled
         horizontal
-        scrollEnabled={true}
+        scrollEnabled={false}
         style={styles.swipper}
         ref={scrollRef}
       >
         <Feed width={WIDTH} navigation={navigation} />
         <View
-          style={{ width: WIDTH, height: "100%", backgroundColor: "#fff" }}
-        ></View>
+          style={{ width: WIDTH, height: "100%", backgroundColor: "#fff", alignItems: "center", justifyContent: "center" }}
+        >
+			<Text>View 2</Text>
+		</View>
+		<View
+          style={{ width: WIDTH, height: "100%", backgroundColor: "#fff", alignItems: "center", justifyContent: "center" }}
+        >
+			<Text>View 3</Text>
+		</View>
       </ScrollView>
         <BottomNavBar
           styles={styles}
           width={WIDTH}
-          actions={[
-            () => switchView(0),
-            () => switchView(1),
-            () => switchView(2),
-          ]}
+          action={switchView}
+		  current={current}
         />
     </SafeAreaView>
   );

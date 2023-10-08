@@ -49,7 +49,7 @@ const WhisperActions = ({ item, navigation }) => {
           style={styles.whisper_action_icon}
         />
       </TouchableOpacity>
-      <TouchableOpacity style={styles.whisper_action}>
+      <TouchableOpacity style={styles.whisper_action} onPress={() => navigation.navigate("Report")}>
         <Image
           source={require("../assets/report.png")}
           style={styles.whisper_action_icon}

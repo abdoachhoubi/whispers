@@ -10,6 +10,7 @@ import Email from "./screens/auth/Email";
 import Home from "./screens/home/Home";
 import Comments from "./screens/home/Comments";
 import Replies from "./screens/home/Replies";
+import Report from "./screens/home/Report";
 
 import {
   useFonts,
@@ -108,6 +109,12 @@ export default function App() {
             options={{ headerShown: false }}
           />
 		  
+		  <Stack.Screen
+            name="Report"
+            component={Report}
+            options={{ headerShown: false }}
+          />
+
         </Stack.Navigator>
       </NavigationContainer>
     </FontContext.Provider>

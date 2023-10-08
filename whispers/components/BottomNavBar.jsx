@@ -1,5 +1,5 @@
 import { TouchableOpacity, View, Image, StyleSheet } from "react-native";
-import React from "react";
+import React  from "react";
 
 const styles = StyleSheet.create({
   bottom_nav_bar_container: {
@@ -27,6 +27,7 @@ const styles = StyleSheet.create({
   },
 });
 
+
 const NavIcon = ({ action, src, isActive }) => {
   return (
     <TouchableOpacity style={styles.bottom_nav_bar_item} onPress={action}>
@@ -39,16 +40,13 @@ const NavIcon = ({ action, src, isActive }) => {
   );
 };
 
-const BottomNavBar = ({ actions, width }) => {
-  const [action1, action2, action3] = actions || [() => {}, () => {}, () => {}];
-
-  console.log(width);
+const BottomNavBar = ({ action, width, current }) => {
 
   return (
     <View style={[styles.bottom_nav_bar_container, {width: width}]}>
-      <NavIcon action={action1} src={require("../assets/home.png")} />
-      <NavIcon action={action2} src={require("../assets/chat.png")} />
-      <NavIcon action={action3} src={require("../assets/settings.png")} />
+      <NavIcon action={() => action(0)} src={current == 0 ? require("../assets/home-active.png") : require("../assets/home.png")} />
+      <NavIcon action={() => action(1)} src={current == 1 ? require("../assets/chat-active.png") : require("../assets/chat.png")} />
+      <NavIcon action={() => action(2)} src={current == 2 ? require("../assets/settings-active.png") : require("../assets/settings.png")} />
       {/* <TouchableOpacity style={styles.bottom_nav_bar_item}>
 		
         <Image
