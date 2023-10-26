@@ -1,7 +1,7 @@
 import { StyleSheet, Text, View, TouchableOpacity, Image } from "react-native";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
-const BlurView = ({ setBlur, fonts, isReply }) => {
+const BlurView = ({ setBlur, fonts, isReply, isComment }) => {
   return (
     <>
       <View style={styles.blurredView}></View>
@@ -14,7 +14,11 @@ const BlurView = ({ setBlur, fonts, isReply }) => {
           onPress={() => setBlur(false)}
         >
           <Text style={[styles.blur_button_text, { fontFamily: fonts.medium }]}>
-            {isReply ? "Show Comment": "Show Whisper"}
+            {isReply
+              ? "Show Reply"
+              : isComment
+              ? "Show Comment"
+              : "Show Whisper"}
           </Text>
         </TouchableOpacity>
       </View>
@@ -22,7 +26,7 @@ const BlurView = ({ setBlur, fonts, isReply }) => {
   );
 };
 
-const WhisperActions = ({ item, navigation }) => {
+const WhisperActions = ({ item, navigation, isComment = false }) => {
   const likeStroke = require("../assets/heart.png");
   const likeFill = require("../assets/heart-filled.png");
   const [liked, setLiked] = useState(item.liked);
@@ -37,7 +41,14 @@ const WhisperActions = ({ item, navigation }) => {
           style={styles.whisper_action_icon}
         />
       </TouchableOpacity>
-      <TouchableOpacity style={styles.whisper_action} onPress={() => navigation.navigate("Comments")}>
+      <TouchableOpacity
+        style={styles.whisper_action}
+        onPress={() => {
+          isComment
+            ? navigation.navigate("Replies")
+            : navigation.navigate("Comments");
+        }}
+      >
         <Image
           source={require("../assets/comment.png")}
           style={styles.whisper_action_icon}
@@ -49,7 +60,10 @@ const WhisperActions = ({ item, navigation }) => {
           style={styles.whisper_action_icon}
         />
       </TouchableOpacity>
-      <TouchableOpacity style={styles.whisper_action} onPress={() => navigation.navigate("Report")}>
+      <TouchableOpacity
+        style={styles.whisper_action}
+        onPress={() => navigation.navigate("Report")}
+      >
         <Image
           source={require("../assets/report.png")}
           style={styles.whisper_action_icon}
@@ -59,15 +73,31 @@ const WhisperActions = ({ item, navigation }) => {
   );
 };
 
-const PostView = ({ data, fonts, isReply, navigation }) => {
+const PostView = ({
+  data,
+  fonts,
+  isReply = false,
+  navigation,
+  isComment = false,
+}) => {
   const { index, item } = data;
   const marginTop = {
     marginTop: index == 0 ? 32 : 0,
   };
   const [blur, setBlur] = useState(item.sensitive);
+  useEffect(() => {
+    setBlur(item.sensitive);
+  }, [item]);
   return (
     <View style={[styles.whisper_container, marginTop]}>
-      {blur && <BlurView setBlur={setBlur} fonts={fonts} isReply={isReply} />}
+      {blur && (
+        <BlurView
+          setBlur={setBlur}
+          fonts={fonts}
+          isReply={isReply}
+          isComment={isComment}
+        />
+      )}
       <View style={styles.whisper_inner_container}>
         <Text style={[styles.whisper_content, { fontFamily: fonts.regular }]}>
           {item.postContent}
@@ -75,7 +105,13 @@ const PostView = ({ data, fonts, isReply, navigation }) => {
         <Text style={[styles.whisper_date, { fontFamily: fonts.regular }]}>
           {item.date}
         </Text>
-        {!isReply && <WhisperActions item={item} navigation={navigation} />}
+        {!isReply && (
+          <WhisperActions
+            item={item}
+            navigation={navigation}
+            isComment={isComment}
+          />
+        )}
       </View>
     </View>
   );
@@ -91,10 +127,11 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     position: "relative",
     overflow: "hidden",
-    display: "block",
+    display: "flex",
+    justifyContent: "center",
     marginBottom: 32,
-	// minimum height of fit-content
-	minHeight: 160,
+    // minimum height of fit-content
+    minHeight: 160,
   },
   whisper_inner_container: {
     padding: 24,
@@ -146,7 +183,7 @@ const styles = StyleSheet.create({
     zIndex: 2,
   },
   blur_info: {
-    color: "#fff",
+    color: "#ff252f",
     fontSize: 16,
     textAlign: "center",
     marginTop: 24,
