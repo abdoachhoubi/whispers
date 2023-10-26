@@ -7,13 +7,15 @@ import {
   TouchableOpacity,
   KeyboardAvoidingView,
 } from "react-native";
-import React, { useContext, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Keyboard } from "react-native";
+import Loader from "../../components/Loader";
 
-import {fonts} from "../../Contexts";
+import { fonts } from "../../Contexts";
 
-const Signin = ({navigation}) => {
+const Signin = ({ navigation }) => {
   const [logo, setLogo] = useState(true);
+  const [load, setLoad] = useState(false);
 
   const hideLogo = () => {
     setLogo(false);
@@ -26,6 +28,7 @@ const Signin = ({navigation}) => {
     // Add event listeners when the component mounts
     Keyboard.addListener("keyboardDidShow", hideLogo);
     Keyboard.addListener("keyboardDidHide", showLogo);
+    setLoad(false);
 
     // Don't forget to remove the listeners when the component unmounts
     return () => {
@@ -34,7 +37,9 @@ const Signin = ({navigation}) => {
     };
   }, []);
 
-  return (
+  return load ? (
+    <Loader />
+  ) : (
     <KeyboardAvoidingView style={styles.container}>
       {logo && (
         <>
@@ -67,7 +72,13 @@ const Signin = ({navigation}) => {
             placeholderTextColor="#fff"
             secureTextEntry={true}
           />
-          <TouchableOpacity style={styles.forgot_password} onPress={() => navigation.navigate("Pass")}>
+          <TouchableOpacity
+            style={styles.forgot_password}
+            onPress={() => {
+              setLoad(true);
+              navigation.navigate("Pass");
+            }}
+          >
             <Text
               style={[
                 styles.forgot_password_text,
@@ -79,15 +90,28 @@ const Signin = ({navigation}) => {
           </TouchableOpacity>
         </KeyboardAvoidingView>
         <TouchableOpacity style={styles.button_container}>
-          <Text style={[styles.button_text, { fontFamily: fonts.bold }]} onPress={() => navigation.navigate("Home")}>
+          <Text
+            style={[styles.button_text, { fontFamily: fonts.bold }]}
+            onPress={() => {
+              setLoad(true);
+              setTimeout(() => {
+                navigation.navigate("Home");
+              }, 3000);
+            }}
+          >
             Sign in
           </Text>
         </TouchableOpacity>
-		<TouchableOpacity style={styles.button_container_transparent} onPress={() => navigation.navigate("Signup")}>
-			<Text style={[styles.forgot_password_text, { fontFamily: fonts.regular }]}>
-				New here? Create an account
-			</Text>
-		</TouchableOpacity>
+        <TouchableOpacity
+          style={styles.button_container_transparent}
+          onPress={() => navigation.navigate("Signup")}
+        >
+          <Text
+            style={[styles.forgot_password_text, { fontFamily: fonts.regular }]}
+          >
+            New here? Create an account
+          </Text>
+        </TouchableOpacity>
       </View>
     </KeyboardAvoidingView>
   );
@@ -168,13 +192,13 @@ const styles = StyleSheet.create({
     color: "#000",
   },
   button_container_transparent: {
-	width: "100%",
-	height: "auto",
-	backgroundColor: "transparent",
-	alignItems: "center",
-	justifyContent: "center",
-	paddingVertical: 16,
-	borderRadius: 8,
-	marginTop: 8,
+    width: "100%",
+    height: "auto",
+    backgroundColor: "transparent",
+    alignItems: "center",
+    justifyContent: "center",
+    paddingVertical: 16,
+    borderRadius: 8,
+    marginTop: 8,
   },
 });

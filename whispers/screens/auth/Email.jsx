@@ -7,10 +7,10 @@ import {
   TouchableOpacity,
   KeyboardAvoidingView,
 } from "react-native";
-import React, { useContext, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Keyboard } from "react-native";
 
-import {fonts} from "../../Contexts";
+import { fonts } from "../../Contexts";
 
 const Email = () => {
   const [logo, setLogo] = useState(true);

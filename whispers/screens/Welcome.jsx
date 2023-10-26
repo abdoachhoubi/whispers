@@ -1,10 +1,9 @@
 import { StyleSheet, Text, View, Image, TouchableOpacity } from "react-native";
-import React, { useContext } from "react";
+import React from "react";
 
-import {fonts} from "../Contexts";
+import { fonts } from "../Contexts";
 
-const Welcome = ({navigation}) => {
-
+const Welcome = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <Image
@@ -19,7 +18,16 @@ const Welcome = ({navigation}) => {
           Send messages, ask questions, and share thoughts without revealing
           your identity.
         </Text>
-        <TouchableOpacity style={styles.button_container} onPress={() => navigation.navigate("Signup")}>
+        <TouchableOpacity
+          style={styles.button_container}
+          onPress={() => {
+            try {
+              navigation.navigate("Signup");
+            } catch (error) {
+              console.log(error);
+            }
+          }}
+        >
           <Text style={[{ fontFamily: fonts.bold }, styles.button_text]}>
             Get Started
           </Text>
